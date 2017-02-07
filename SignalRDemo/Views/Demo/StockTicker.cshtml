@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "StockTicker";
+}
+
+<h2>Stock Ticker (Server Broadcast)</h2>
+<div class="well">
+    SignalR application which provide server broadcast functionality. Server broadcast means that communications sent to clients are initiated by the server.
+    <br />
+    <br />
+    When you run the application for the first time, the "market" is "closed". When you click Open Market, the server starts to periodically broadcast stock price changes on a random basis. Each time a stock price changes, both the Live Stock Table grid and the Live Stock Ticker box are updated. The Close Market button stops the changes and stops the ticker scrolling, and the Reset button resets all stock data to the initial state before price changes started.
+    <br />
+    <br />
+    Copy the page's URL and paste it into a second browser window. You see the same data dynamically updated at the same time in each browser. When you click one of the buttons, all browsers respond the same way at the same time.
+</div>
+
+<input type="button" id="open" value="Open Market" />
+<input type="button" id="close" value="Close Market" disabled="disabled" />
+<input type="button" id="reset" value="Reset" />
+
+<h2>Live Stock Table</h2>
+<div id="stockTable">
+    <table border="1">
+        <thead>
+            <tr><th>Symbol</th><th>Price</th><th>Open</th><th>High</th><th>Low</th><th>Change</th><th>%</th></tr>
+        </thead>
+        <tbody>
+            <tr class="loading"><td colspan="7">loading...</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Live Stock Ticker</h2>
+<div id="stockTicker">
+    <div class="inner">
+        <ul>
+            <li class="loading">loading...</li>
+        </ul>
+    </div>
+</div>
+
+
+@section scripts {
+    @Scripts.Render("~/bundles/jquerysignalr")
+    <script src="~/signalr/hubs"></script>
+    @Scripts.Render("~/bundles/StockTicker")
+}

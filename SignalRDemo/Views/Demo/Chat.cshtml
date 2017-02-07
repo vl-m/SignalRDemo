@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Chat";
+}
+
+<h2>Chat</h2>
+
+<div class="well">
+    @*
+        //**/
+        Copy the page's URL, paste it into a second browser window and login with different username. If you login using same user name, connection Id will identify you.
+        <br />
+        Message format is: <strong>[user name]  ([connection Id])</strong>: [message]
+    *@
+    Copy the page's URL and paste it into a second browser window.
+    <br />
+    Message format is: <strong>[connection Id]</strong>: [message]
+</div>
+
+<br />
+
+<div class="container">
+    <input type="text" id="message" />
+    <input type="button" id="sendmessage" value="Send" />
+    <ul id="discussion"></ul>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jquerysignalr")
+    <script src="~/signalr/hubs"></script>
+
+    <script>
+        function addHistoryMessage(message) {
+            if ($('#discussion').html().length == 0) {
+                $('#discussion').append('<strong style="text-decoration:underline">Message log:</strong><br />');
+            }
+
+            $('#discussion').append(message);
+        }
+
+        $(function () {
+            // Reference the auto-generated proxy for the hub.
+            var chat = $.connection.chatHub;
+            // Create a function that the hub can call back to display messages.
+            chat.client.addNewMessageToPage = function (name, connectionId, message) {
+                // Add the message to the page.
+                //**/addHistoryMessage('<li><span style="color:blue"><strong>' + htmlEncode(name) + '</strong> (' + htmlEncode(connectionId)
+                //**/    + '):</span> ' + htmlEncode(message) + '</li>');
+                addHistoryMessage('<li><span style="color:blue"><strong>' + htmlEncode(name) + '</strong> ' + htmlEncode(connectionId) + ':</span> ' + htmlEncode(message) + '</li>');//**/
+            };
+            chat.client.addNewSystemMessageToPage = function (name, connectionId, message) {
+                // Add the message to the page.
+                addHistoryMessage('<em style="color:gray; ">' + htmlEncode(name) + ' (' + htmlEncode(connectionId)
+                    + '): ' + htmlEncode(message) + '</em><br />');
+            };
+            // Set initial focus to message input box.
+            $('#message').focus();
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                $('#sendmessage').click(function () {
+                    // Call the Send method on the hub.
+                    chat.server.send($('#message').val());
+                    // Clear text box and reset focus for next comment.
+                    $('#message').val('').focus();
+                });
+            });
+        });
+        // This optional function html-encodes messages for display in the page.
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+    </script>
+}

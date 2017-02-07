@@ -1,0 +1,106 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* Move Shape Demo */
+
+.shape {
+    width: 100px;
+    height: 100px;
+    background-color: #FF0000;
+    position:absolute;
+}
+
+.shapeStatic {
+    width: 100px;
+    height: 100px;
+}
+
+/*Stock Ticker Demo*/
+
+#stockTable table {
+    border-collapse: collapse;
+}
+
+    #stockTable table th, #stockTable table td {
+        padding: 2px 6px;
+    }
+
+    #stockTable table td {
+        text-align: right;
+    }
+
+#stockTable .loading td {
+    text-align: left;
+}
+
+#stockTicker {
+    overflow: hidden;
+    width: 450px;
+    height: 24px;
+    border: 1px solid #999;
+}
+
+    #stockTicker .inner {
+        width: 9999px;
+    }
+
+    #stockTicker ul {
+        display: inline-block;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #stockTicker li {
+        display: inline-block;
+        margin-right: 8px;   
+    }
+
+    /*<li data-symbol="{Symbol}"><span class="symbol">{Symbol}</span><span class="price">{Price}</span><span class="change">{PercentChange}</span></li>*/
+    #stockTicker .symbol {
+        font-weight: bold;
+    }
+
+    #stockTicker .change {
+        font-style: italic;
+    }

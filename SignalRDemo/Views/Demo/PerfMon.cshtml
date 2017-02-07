@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "PerfMon";
+}
+
+<h2>PerfMon</h2>
+
+<div class="well">
+    SignalR demo application which real time server performace monitor.
+</div>
+
+<div class="row" data-bind="foreach:counters">
+
+    <div class="col-md-12">
+        <h2 data-bind="text:name"></h2>
+        <canvas width="800" height="100" data-bind="attr:{'id': name}"></canvas>
+    </div>
+
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jquerysignalr")
+    <script src="~/signalr/hubs"></script>
+    @Scripts.Render("~/bundles/perfMon")
+}
